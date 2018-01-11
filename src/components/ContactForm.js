@@ -7,10 +7,10 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 const FIELDS = [
 	{ name: "firstName", label: "First Name", required: true },
 	{ name: "lastName", label: "Last Name", required: true },
-	{ name: "company", label: "Company", required: true },
-	{ name: "email", label: "Email", required: true },
-	{ name: "number", label: "Number", required: true },
-	{ name: "skype", label: "Skype ID", required: true },
+	{ name: "company", label: "Company Name", required: true },
+	{ name: "email", label: "Email Address", required: true },
+	{ name: "number", label: "Phone Number", required: false },
+	{ name: "skype", label: "Skype ID", required: false },
 	{ name: "projectDescription", label: "Project Description", required: true }
 ];
 
@@ -104,6 +104,7 @@ class ContactForm extends Component {
 							type="submit"
 							disabled={submitting}
 							label="Submit"
+							disabled={progress !== MAX}
 						/>
 					</div>
 				</form>
