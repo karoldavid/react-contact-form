@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Field, reduxForm } from "redux-form";
-import { TextField, RaisedButton } from "material-ui";
+import { TextField, RaisedButton, LinearProgress } from "material-ui";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 const FIELDS = [
-	{ name: "firstName", label: "First Name" },
-	{ name: "lastName", label: "Last Name" },
-	{ name: "company", label: "Company" },
-	{ name: "email", label: "Email" },
-	{ name: "number", label: "Number" },
-	{ name: "skype", label: "Skype ID" },
-	{ name: "projectDescription", label: "Project Description" }
+	{ name: "firstName", label: "First Name", required: true },
+	{ name: "lastName", label: "Last Name", required: true },
+	{ name: "company", label: "Company", required: true },
+	{ name: "email", label: "Email", required: true },
+	{ name: "number", label: "Number", required: true },
+	{ name: "skype", label: "Skype ID", required: true },
+	{ name: "projectDescription", label: "Project Description", required: true }
 ];
 
 const validate = values => {
@@ -68,6 +68,7 @@ class ContactForm extends Component {
 		return (
 			<MuiThemeProvider>
 				<form onSubmit={handleSubmit(this.onFormSubmit)}>
+					<LinearProgress mode="determinate" max={100} value={20} />
 					{FIELDS.map(field => this.makeForm(field))}
 
 					<div>
