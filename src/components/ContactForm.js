@@ -3,9 +3,19 @@ import { Field, reduxForm } from "redux-form";
 import { TextField, RaisedButton } from "material-ui";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
+const FIELDS = [
+	{ name: "firstName", label: "First Name" },
+	{ name: "lastName", label: "Last Name" },
+	{ name: "company", label: "Company" },
+	{ name: "email", label: "Email" },
+	{ name: "number", label: "Number" },
+	{ name: "skype", label: "Skype ID" },
+	{ name: "projectDescription", label: "Project Description" }
+];
+
 const validate = values => {
 	const errors = {};
-	const requiredFields = ["firstName", "lastName", "email", "company", "position", "request"];
+	const requiredFields = ["firstName"];
 	requiredFields.forEach(field => {
 		if (!values[field]) {
 			errors[field] = "Required";
@@ -36,10 +46,21 @@ class ContactForm extends Component {
 		/>
 	);
 
-	  onFormSubmit = params => {
+	makeForm = ({ name, label }) => {
+		return (
+			<div key={name}>
+				<Field
+					name={name}
+					component={this.renderTextField}
+					label={label}
+				/>
+			</div>
+		);
+	};
 
-	    console.log(params)
-	  };
+	onFormSubmit = params => {
+		console.log(params);
+	};
 
 	render() {
 		const { handleSubmit } = this.props;
@@ -47,49 +68,14 @@ class ContactForm extends Component {
 		return (
 			<MuiThemeProvider>
 				<form onSubmit={handleSubmit(this.onFormSubmit)}>
-					<div>
-						<Field
-							name="firstName"
-							component={this.renderTextField}
-							label="First Name"
-						/>
-					</div>
-					<div>
-						<Field
-							name="lastName"
-							component={this.renderTextField}
-							label="Last Name"
-						/>
-					</div>
-					<div>
-						<Field
-							name="email"
-							component={this.renderTextField}
-							label="email"
-						/>
-					</div>
-					<div>
-						<Field
-							name="company"
-							component={this.renderTextField}
-							label="company"
-						/>
-					</div>
-					<div>
-						<Field
-							name="position"
-							component={this.renderTextField}
-							label="position"
-						/>
-					</div>
-					<div>
-						<Field
-							name="request"
-							component={this.renderTextField}
-							label="request"
-						/>
-					</div>
-					<RaisedButton primary labelColor="#FFFFFF" type="submit" label="Submit" />
+					{FIELDS.map(field => this.makeForm(field))}
+
+					<RaisedButton
+						primary
+						labelColor="#FFFFFF"
+						type="submit"
+						label="Submit"
+					/>
 				</form>
 			</MuiThemeProvider>
 		);
