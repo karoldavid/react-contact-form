@@ -63,19 +63,31 @@ class ContactForm extends Component {
 	};
 
 	render() {
-		const { handleSubmit } = this.props;
+		const { handleSubmit, reset, submitting } = this.props;
 
 		return (
 			<MuiThemeProvider>
 				<form onSubmit={handleSubmit(this.onFormSubmit)}>
 					{FIELDS.map(field => this.makeForm(field))}
 
-					<RaisedButton
-						primary
-						labelColor="#FFFFFF"
-						type="submit"
-						label="Submit"
-					/>
+					<div>
+						<RaisedButton
+							primary
+							labelColor="#FFFFFF"
+							type="submit"
+							disabled={submitting}
+							label="Reset"
+							onClick={reset}
+						/>
+
+						<RaisedButton
+							primary
+							labelColor="#FFFFFF"
+							type="submit"
+							disabled={submitting}
+							label="Submit"
+						/>
+					</div>
 				</form>
 			</MuiThemeProvider>
 		);
