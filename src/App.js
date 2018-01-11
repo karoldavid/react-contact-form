@@ -18,7 +18,10 @@ class App extends Component {
           <Row>
             <Col sm={12}>
               <MuiThemeProvider>
-                <AppBar title="Looking for a React Developer?" />
+                <AppBar
+                  title="Looking for a React Developer?"
+                  showMenuIconButton={false}
+                />
               </MuiThemeProvider>
             </Col>
           </Row>
