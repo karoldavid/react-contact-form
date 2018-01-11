@@ -15,7 +15,7 @@ const FIELDS = [
 ];
 
 const REQUIRED = FIELDS.reduce((previous, field) => {
-	return field.required ? previous + 1  : previous;
+	return field.required ? previous + 1 : previous;
 }, 0);
 
 const MAX = 100;
@@ -70,12 +70,13 @@ class ContactForm extends Component {
 
 	onFormSubmit = params => {
 		console.log(params);
+		this.props.reset();
 	};
 
 	render() {
 		const { errors, handleSubmit, reset, submitting } = this.props;
 		const stillToEnter = Object.keys(errors).length;
-		const progress = (REQUIRED  - stillToEnter) * (100 / REQUIRED)
+		const progress = (REQUIRED - stillToEnter) * (100 / REQUIRED);
 
 		return (
 			<MuiThemeProvider>
@@ -102,9 +103,8 @@ class ContactForm extends Component {
 							primary
 							labelColor="#FFFFFF"
 							type="submit"
-							disabled={submitting}
-							label="Submit"
 							disabled={progress !== MAX}
+							label="Submit"
 						/>
 					</div>
 				</form>
