@@ -15,7 +15,10 @@ const FIELDS = [
 
 const validate = values => {
 	const errors = {};
-	const requiredFields = ["firstName"];
+	const requiredFields = FIELDS.reduce((previous, field) => {
+		if (field.required) previous.push(field.name);
+		return previous;
+	}, []);
 	requiredFields.forEach(field => {
 		if (!values[field]) {
 			errors[field] = "Required";
