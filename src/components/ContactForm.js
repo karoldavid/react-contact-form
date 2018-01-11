@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm, getFormSyncErrors } from "redux-form";
-import { TextField, RaisedButton, LinearProgress } from "material-ui";
+import { TextField, RaisedButton, LinearProgress, Snackbar } from "material-ui";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import "../App.css";
 
 const FIELDS = [
 	{ name: "firstName", label: "First Name", required: true },
@@ -11,7 +12,11 @@ const FIELDS = [
 	{ name: "email", label: "Email Address", required: true },
 	{ name: "number", label: "Phone Number", required: false },
 	{ name: "skype", label: "Skype ID", required: false },
-	{ name: "projectDescription", label: "Project Description", required: true }
+	{
+		name: "projectDescription",
+		label: "Project Description",
+		required: true
+	}
 ];
 
 const REQUIRED = FIELDS.reduce((previous, field) => {
@@ -41,6 +46,12 @@ const validate = values => {
 };
 
 class ContactForm extends Component {
+	state = {
+		open: false,
+		message: "Your Form has been submitted",
+		duration: 3000
+	};
+
 	renderTextField = ({
 		input,
 		label,
@@ -70,11 +81,14 @@ class ContactForm extends Component {
 
 	onFormSubmit = params => {
 		console.log(params);
+		this.setState({
+			open: true
+		});
 		this.props.reset();
 	};
 
 	render() {
-		const { errors, handleSubmit, reset, submitting } = this.props;
+		const { errors, handleSubmit } = this.props;
 		const stillToEnter = Object.keys(errors).length;
 		const progress = (REQUIRED - stillToEnter) * (100 / REQUIRED);
 
@@ -94,19 +108,20 @@ class ContactForm extends Component {
 							primary
 							labelColor="#FFFFFF"
 							type="submit"
-							disabled={submitting}
-							label="Reset"
-							onClick={reset}
-						/>
-
-						<RaisedButton
-							primary
-							labelColor="#FFFFFF"
-							type="submit"
-							disabled={progress !== MAX}
 							label="Submit"
+							className={"submit-button"}
 						/>
 					</div>
+					<Snackbar
+						open={this.state.open}
+						message={this.state.message}
+						autoHideDuration={this.state.duration || 5000}
+						onRequestClose={() =>
+							this.setState({
+								open: false
+							})
+						}
+					/>
 				</form>
 			</MuiThemeProvider>
 		);
