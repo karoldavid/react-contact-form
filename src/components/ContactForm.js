@@ -60,6 +60,10 @@ const validate = values => {
 		errors.skype =
 			"Skype ID cannot be shorter than six characters or longer than 32";
 	}
+	if (values.projectDescription && (values.projectDescription.length < 20)) {
+		errors.projectDescription =
+			"Project Description cannot be shorter than 20 characters";
+	}
 
 	return errors;
 };
