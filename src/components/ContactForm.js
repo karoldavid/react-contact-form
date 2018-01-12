@@ -8,15 +8,15 @@ import * as actions from "../actions";
 
 const FIELDS = [
 	{ name: "firstName", label: "First Name", required: true },
-	{ name: "lastName", label: "Last Name", required: true },
-	{ name: "company", label: "Company Name", required: true },
-	{ name: "email", label: "Email Address", required: true },
+	{ name: "lastName", label: "Last Name", required: false },
+	{ name: "company", label: "Company Name", required: false },
+	{ name: "email", label: "Email Address", required: false },
 	{ name: "number", label: "Phone Number", required: false },
 	{ name: "skype", label: "Skype ID", required: false },
 	{
 		name: "projectDescription",
 		label: "Project Description",
-		required: true
+		required: false
 	}
 ];
 
@@ -47,12 +47,6 @@ const validate = values => {
 };
 
 class ContactForm extends Component {
-	state = {
-		open: false,
-		message: "Your Form has been submitted",
-		duration: 3000
-	};
-
 	renderTextField = ({
 		input,
 		label,
@@ -81,11 +75,7 @@ class ContactForm extends Component {
 	};
 
 	onFormSubmit = params => {
-		this.props.submitData(params);
-		this.setState({
-			open: true
-		});
-		this.props.reset();
+		this.props.submitData({ params, message: "" }, () => this.props.reset());
 	};
 
 	render() {
@@ -114,14 +104,10 @@ class ContactForm extends Component {
 						/>
 					</div>
 					<Snackbar
-						open={this.state.open}
-						message={this.state.message}
-						autoHideDuration={this.state.duration || 5000}
-						onRequestClose={() =>
-							this.setState({
-								open: false
-							})
-						}
+						open={this.props.data.success}
+						message={this.props.data.message}
+						autoHideDuration={5000}
+						onRequestClose={() => this.props.resetData()}
 					/>
 				</form>
 			</MuiThemeProvider>
@@ -130,8 +116,10 @@ class ContactForm extends Component {
 }
 
 const mapStateToProps = state => {
+	console.log(state.data);
 	return {
-		errors: getFormSyncErrors("contactForm")(state)
+		errors: getFormSyncErrors("contactForm")(state),
+		data: state.data
 	};
 };
 

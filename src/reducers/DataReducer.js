@@ -8,22 +8,33 @@ import {
 const INITIAL_STATE = {
 	submitting: false,
 	success: false,
-	error: false
+	error: false,
+	message: "",
+	open: false
 };
 
 export default function(state = INITIAL_STATE, action) {
 	switch (action.type) {
 		case SUBMIT_FORM_DATA:
-			console.log(action.type);
-			return { ...state, submitting: true, success: false };
+			return { ...state, submitting: true };
 		case SUBMIT_FORM_DATA_SUCCESS:
-			console.log(action.type);
-			return { ...state, submitting: false, success: true };
+			return {
+				...state,
+				submitting: false,
+				success: true,
+				open: true,
+				message: action.payload
+			};
 		case SUBMIT_FORM_DATA_ERROR:
-			console.log(action.type);
-			return { ...state, submitting: false, success: false, error: true };
+			return {
+				...state,
+				submitting: false,
+				success: false,
+				error: true,
+				open: true,
+				message: action.payload
+			};
 		case SUBMIT_FORM_DATA_RESET:
-			console.log(action.type);
 			return INITIAL_STATE;
 		default:
 			return state;
