@@ -1,6 +1,6 @@
 # React Contact Form
 
-Please fill out the form if you are looking for a ReactJS or React NAtive Developer:
+Please fill out the form if you are looking for a ReactJS or React Native Developer:
 
 https://karoldavid.github.io/react-contact-form/
 
