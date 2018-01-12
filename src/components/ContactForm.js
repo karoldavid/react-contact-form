@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { Field, reduxForm, getFormSyncErrors } from "redux-form";
 import { TextField, RaisedButton, LinearProgress, Snackbar } from "material-ui";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import "../App.css";
+import "./ContactForm.css";
+import * as actions from "../actions";
 
 const FIELDS = [
 	{ name: "firstName", label: "First Name", required: true },
@@ -80,7 +81,7 @@ class ContactForm extends Component {
 	};
 
 	onFormSubmit = params => {
-		console.log(params);
+		this.props.submitData(params);
 		this.setState({
 			open: true
 		});
@@ -137,4 +138,4 @@ const mapStateToProps = state => {
 export default reduxForm({
 	form: "contactForm",
 	validate
-})(connect(mapStateToProps)(ContactForm));
+})(connect(mapStateToProps, actions)(ContactForm));
