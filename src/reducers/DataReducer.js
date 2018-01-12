@@ -29,7 +29,6 @@ export default function(state = INITIAL_STATE, action) {
 			return {
 				...state,
 				submitting: false,
-				success: false,
 				error: true,
 				open: true,
 				message: action.payload

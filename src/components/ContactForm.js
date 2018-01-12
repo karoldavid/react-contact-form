@@ -8,7 +8,7 @@ import * as actions from "../actions";
 
 const FIELDS = [
 	{ name: "firstName", label: "First Name", required: true },
-	{ name: "lastName", label: "Last Name", required: false },
+	{ name: "lastName", label: "Last Name", required: true },
 	{ name: "company", label: "Company Name", required: false },
 	{ name: "email", label: "Email Address", required: false },
 	{ name: "number", label: "Phone Number", required: false },
@@ -37,12 +37,30 @@ const validate = values => {
 			errors[field] = "Required";
 		}
 	});
+
+	if (values.firstName && values.firstName.length < 2) {
+		errors.firstName = "First Name too short";
+	}
+	if (values.lastName && values.lastName.length < 2) {
+		errors.lastName = "Last Name too short";
+	}
+	if (values.company && values.company.length < 2) {
+		errors.company = "Company Name too short";
+	}
 	if (
 		values.email &&
 		!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
 	) {
 		errors.email = "Invalid email address";
 	}
+	if (values.number && values.number.length < 10) {
+		errors.number = "Number too short";
+	}
+	if (values.skype && (values.skype.length < 6 || values.skype.length > 32)) {
+		errors.skype =
+			"Skype ID cannot be shorter than six characters or longer than 32";
+	}
+
 	return errors;
 };
 
@@ -75,11 +93,14 @@ class ContactForm extends Component {
 	};
 
 	onFormSubmit = params => {
-		this.props.submitData({ params, message: "" }, () => this.props.reset());
+		this.props.submitData({ params, message: "" }, () =>
+			this.props.reset()
+		);
 	};
 
 	render() {
-		const { errors, handleSubmit } = this.props;
+		const { errors, handleSubmit, resetData } = this.props;
+		const { open, message } = this.props.data;
 		const stillToEnter = Object.keys(errors).length;
 		const progress = (REQUIRED - stillToEnter) * (100 / REQUIRED);
 
@@ -104,10 +125,10 @@ class ContactForm extends Component {
 						/>
 					</div>
 					<Snackbar
-						open={this.props.data.success}
-						message={this.props.data.message}
+						open={open}
+						message={message}
 						autoHideDuration={5000}
-						onRequestClose={() => this.props.resetData()}
+						onRequestClose={() => resetData()}
 					/>
 				</form>
 			</MuiThemeProvider>
@@ -116,7 +137,6 @@ class ContactForm extends Component {
 }
 
 const mapStateToProps = state => {
-	console.log(state.data);
 	return {
 		errors: getFormSyncErrors("contactForm")(state),
 		data: state.data
