@@ -1,17 +1,12 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getFormSyncErrors } from "redux-form";
 import { Container, Row, Col } from "react-grid-system";
-import { AppBar, MuiThemeProvider, Snackbar } from "material-ui";
-import ContactForm from "./components/ContactForm";
-import * as actions from "./actions";
-import "./App.css";
+import { AppBar, MuiThemeProvider } from "material-ui";
 import { FIELDS } from "./utils/consts";
+import ContactForm from "./components/ContactForm";
+import "./App.css";
 
-
-class App extends Component {
+export default class App extends Component {
   render() {
-    const { open, message, resetData } = this.props;
     return (
       <div className="App">
         <MuiThemeProvider>
@@ -26,13 +21,7 @@ class App extends Component {
             </Row>
             <Row>
               <Col sm={12}>
-                <ContactForm fields={FIELDS}/>
-                <Snackbar
-                  open={open}
-                  message={message}
-                  autoHideDuration={5000}
-                  onRequestClose={() => resetData()}
-                />
+                <ContactForm fields={FIELDS} />
               </Col>
             </Row>
             <Row>
@@ -44,14 +33,3 @@ class App extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  const { message, open } = state.data
-  return {
-    errors: getFormSyncErrors("contactForm")(state),
-    message,
-    open
-  };
-};
-
-export default connect(mapStateToProps, actions)(App);

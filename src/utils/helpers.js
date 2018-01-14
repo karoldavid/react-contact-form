@@ -41,3 +41,11 @@ export const validate = (values, props) => {
 
 	return errors;
 };
+
+export const getProgress = (errors, data) => {
+	const required = data.reduce((previous, item) => {
+		return item.required ? previous + 1 : previous;
+	}, 0);
+	const stillToEnter = Object.keys(errors).length;
+	return (required - stillToEnter) * (100 / required);
+};
