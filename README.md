@@ -4,7 +4,7 @@ Please fill out the contact form if you are looking for a ReactJS or React Nativ
 
 https://karoldavid.github.io/react-contact-form/
 
-## Features:
+## Features
 
 * Input Validation
 * Progress Bar
