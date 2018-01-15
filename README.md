@@ -1,30 +1,31 @@
 # React Contact Form
 
-Please fill out the form if you are looking for a ReactJS or React Native Developer:
+Please fill out the contact form if you are looking for a ReactJS or React Native Developer:
 
 https://karoldavid.github.io/react-contact-form/
 
-## Getting Started
+## Features:
 
-### Prerequisites
+* Input Validation
+* Progress Bar
+* Snackbar Notifications
+* Form Data is stored in a Firebase Database
 
-@TODO
+## Installing
 
-### Installing
-
-@TODO
-
-## Test
-
-@TODO
+* Clone or download the repository
+* Run `npm install` to install dependencies
+* Run `npm start`
+* In your browser's address bar navigate to `localhost:3000`
 
 ## Built With
 
-* [Create React Native App](https://github.com/react-community/create-react-native-app)
+* [Create React App](https://github.com/facebookincubator/create-react-app)
 * [React Redux](https://github.com/reactjs/react-redux)
 * [Redux Thunk](https://github.com/gaearon/redux-thunk)
-* [Android Studio](https://developer.android.com/studio/index.html)
-* [Expo](https://expo.io/)
+* [Redux Form](https://github.com/erikras/redux-form)
+* [Material UI](http://www.material-ui.com)
+* [Firebase](https://firebase.google.com/)
 
 ## Author
 
@@ -35,7 +36,3 @@ Questions? Send an email to: k.zysk@zoho.com
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgements
-
-@TODO
